@@ -27,7 +27,6 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: background 1s ease;
     }
 
     .glow-top {
@@ -59,32 +58,30 @@
       font-weight: 900;
       letter-spacing: -3px;
       cursor: pointer;
-      user-select: none;
       background: linear-gradient(to bottom, #fff 30%, #666);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: 0.3s;
-    }
-
-    #status-text {
-      color: #888;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-      font-weight: 600;
     }
 
     .visitor-stats {
       margin-top: 20px;
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
       background: rgba(255,255,255,0.05);
-      padding: 10px 20px;
-      border-radius: 100px;
+      padding: 12px 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 242, 234, 0.2);
     }
 
-    .visitor-stats span { font-weight: 900; color: var(--accent); font-size: 1.2rem; }
-    .visitor-stats p { font-size: 10px; letter-spacing: 2px; opacity: 0.5; }
+    .visitor-stats span { 
+      font-weight: 900; 
+      color: var(--accent); 
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px rgba(0, 242, 234, 0.5);
+    }
+
+    .visitor-stats p { font-size: 9px; letter-spacing: 2px; opacity: 0.5; margin-top: 5px; }
 
     /* Buttons */
     .btn {
@@ -98,13 +95,11 @@
       text-decoration: none;
       font-weight: 800;
       z-index: 20;
-      transition: transform 0.2s;
     }
-    .btn:active { transform: scale(0.9); }
-
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
 
+    /* Music Player */
     .music-bar {
       position: fixed;
       top: 25px;
@@ -114,7 +109,6 @@
       gap: 10px;
       z-index: 100;
     }
-
     .m-btn {
       width: 45px; height: 45px; border-radius: 50%; border: none;
       background: rgba(255,255,255,0.1); color: white; cursor: pointer;
@@ -130,18 +124,18 @@
 
   <div class="music-bar">
     <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
-    <div style="font-size: 10px; opacity: 0.5;" id="songTitle">JAZZ VIBE</div>
+    <div style="font-size: 10px; opacity: 0.5;" id="songTitle">CHILL JAZZ</div>
     <audio id="audioPlayer" loop></audio>
   </div>
 
   <main class="card">
-    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
+    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">GLOBAL VIBE</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
-    <p id="status-text">Experience the vibe.</p>
+    <p id="status-text" style="color:#888; font-size: 0.9rem; margin-top: 5px;">Live Network Connected</p>
     
     <div class="visitor-stats">
-      <span id="vCount">0</span>
-      <p>UNIQUE VISITS</p>
+      <span id="vCount">...</span>
+      <p>LIVE WORLDWIDE VISITS</p>
     </div>
   </main>
 
@@ -154,24 +148,31 @@
   </a>
 
   <script>
-    // 1. UNIQUE VISITOR LOGIC (FORCED RESET)
-    const NEW_STORAGE_KEY = 'bero_final_count_v1'; // Changed key to force reset from 421
-    const sessionID = "bero_unique_session";
-    
-    let totalVisits = parseInt(localStorage.getItem(NEW_STORAGE_KEY)) || 0;
+    // 1. LIVE GLOBAL COUNTER
+    // This uses a public API. If the number doesn't load immediately, the server is syncing.
+    const namespace = "bero69er_github_io";
+    const key = "main_counter";
 
-    if (!sessionStorage.getItem(sessionID)) {
-      totalVisits++;
-      localStorage.setItem(NEW_STORAGE_KEY, totalVisits);
-      sessionStorage.setItem(sessionID, "true");
+    async function getLiveCount() {
+      try {
+        // This increments the count on the server
+        const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+        const data = await response.json();
+        document.getElementById('vCount').innerText = data.value.toLocaleString();
+      } catch (error) {
+        // Fallback if API is down
+        document.getElementById('vCount').innerText = "ONLINE";
+      }
     }
-    document.getElementById('vCount').innerText = totalVisits.toLocaleString();
+
+    // Call it immediately
+    getLiveCount();
 
     // 2. RANDOM JAZZ
     const jazzSongs = [
-      { name: "CHILL CAFE", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-      { name: "MIDNIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-      { name: "SILK SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
+      { name: "LO-FI CAFE", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { name: "SILK ROAD", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+      { name: "NIGHT SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
     ];
 
     const player = document.getElementById('audioPlayer');
@@ -192,7 +193,7 @@
       }
     }
 
-    // 3. HIGH MODE (5 Taps)
+    // 3. HIGH MODE
     let taps = 0;
     function handleEgg() {
       taps++;
