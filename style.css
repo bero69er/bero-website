@@ -1,1 +1,156 @@
-*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;overflow:hidden;font-family:Arial,sans-serif;background:radial-gradient(circle at top,#1e2a78,#090b1a 55%,#05060d);color:#fff;display:grid;place-items:center}.bg-orb{position:absolute;border-radius:50%;filter:blur(20px);opacity:.6;animation:float 8s ease-in-out infinite}.orb1{width:180px;height:180px;background:#7c3aed;top:10%;left:10%}.orb2{width:240px;height:240px;background:#06b6d4;bottom:12%;right:8%;animation-delay:2s}.orb3{width:120px;height:120px;background:#f97316;top:60%;left:18%;animation-delay:4s}.card{position:relative;z-index:2;width:min(90vw, 420px);padding:32px 24px;text-align:center;border:1px solid rgb(255 255 255 / .15);border-radius:24px;background:rgb(255 255 255 / .08);backdrop-filter:blur(12px);box-shadow:0 0 30px rgb(0 0 0 / .35);animation:pop 1s ease-out}.tag{font-size:12px;letter-spacing:4px;color:#9ca3af;margin-bottom:10px}h1{font-size:clamp(2rem, 7vw, 3.6rem);margin-bottom:12px;text-shadow:0 0 12px rgb(96 165 250 / .8);animation:glow 2s ease-in-out infinite alternate}.subtitle{color:#e5e7eb;line-height:1.5;margin-bottom:24px}.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}.neon-btn{border:none;padding:14px 28px;font-size:16px;border-radius:999px;color:#fff;background:linear-gradient(135deg,#7c3aed,#06b6d4);box-shadow:0 0 14px rgb(6 182 212 / .5),inset 0 0 10px rgb(255 255 255 / .1);font-weight:700;cursor:pointer;transition:transform 0.2s ease,box-shadow 0.3s ease,filter 0.3s ease;position:relative;overflow:hidden;touch-action:manipulation}.neon-btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgb(255 255 255 / .4),transparent);transform:translateX(-120%);transition:transform 0.6s ease}.neon-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 12px 32px rgb(124 58 237 / .6),0 0 40px rgb(6 182 212 / .8),inset 0 0 20px rgb(255 255 255 / .2);filter:brightness(1.1)}.neon-btn:hover::before{transform:translateX(120%)}.neon-btn:active{transform:scale(.98)}.counter{display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:14px 18px;border-radius:18px;background:rgb(255 255 255 / .08);border:1px solid rgb(255 255 255 / .12)}.counter span{font-size:2rem;font-weight:700;color:#facc15}.counter p{font-size:.9rem;color:#d1d5db}@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.08)}}@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}@keyframes glow{from{text-shadow:0 0 10px rgb(96 165 250 / .5)}to{text-shadow:0 0 24px #22d3ee}}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e2a78, #090b1a 55%, #05060d);
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+/* Background Orbs */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb1 { width: 180px; height: 180px; background: #7c3aed; top: 10%; left: 10%; }
+.orb2 { width: 240px; height: 240px; background: #06b6d4; bottom: 12%; right: 8%; animation-delay: 2s; }
+.orb3 { width: 120px; height: 120px; background: #f97316; top: 60%; left: 18%; animation-delay: 4s; }
+
+/* Main Card */
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 420px);
+  padding: 32px 24px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.35);
+  animation: pop 1s ease-out;
+}
+
+.tag {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(96,165,250,0.8);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+  color: #e5e7eb;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.neon-btn {
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  box-shadow: 0 0 14px rgba(6,182,212,0.5), inset 0 0 10px rgba(255,255,255,0.1);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.neon-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(124,58,237,0.6), 0 0 40px rgba(6,182,212,0.8);
+}
+
+.counter {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.counter span { font-size: 2rem; font-weight: bold; color: #facc15; }
+.counter p { font-size: 0.9rem; color: #d1d5db; }
+
+/* Snapchat Bottom Left */
+.snap-corner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.snap-corner i {
+  color: #FFFC00; /* Snap Yellow */
+  font-size: 1.4rem;
+}
+
+.snap-corner span {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.snap-corner:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.08); }
+}
+
+@keyframes pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(96,165,250,0.5); }
+  to { text-shadow: 0 0 24px rgba(34,211,238,1); }
+}
