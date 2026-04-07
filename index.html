@@ -65,103 +65,66 @@
       margin-bottom: 5px;
     }
 
-    /* --- Storm Scene Box (Replacing Fight Box) --- */
-    .storm-scene {
+    /* Sad Anime Rain Scene */
+    .anime-box {
       margin: 15px auto 0;
       width: 100%;
-      height: 160px; /* Adjusted height for the scene */
+      height: 180px;
       border-radius: 25px;
       border: 2px solid rgba(255,255,255,0.1);
       position: relative;
       overflow: hidden;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-      
-      /* 1. The Cloudy/Dark Sky Background */
-      background: linear-gradient(to bottom, #1a1a2e 0%, #0f0f1a 70%, #050509 100%);
-      
-      /* Lightning Flash Animation */
-      animation: lightningFlash 8s linear infinite;
+      background: #000;
     }
 
-    /* 2. The Rain Effect (Pure CSS) */
-    .storm-scene::before {
-      content: '';
+    .anime-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      filter: grayscale(0.3) contrast(1.1);
+      animation: lightningStrike 7s infinite;
+    }
+
+    /* Live Rain Overlay */
+    .rain {
       position: absolute;
-      top: -50%; /* Start off-screen */
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: transparent;
+      z-index: 2;
+    }
+
+    .rain::after {
+      content: "";
+      position: absolute;
+      top: -100%;
       left: 0;
       width: 100%;
-      height: 200%; /* Extra height for animation */
-      
-      /* Repeating linear gradient creates 'drops' */
-      background-image: repeating-linear-gradient(190deg, 
-        rgba(255, 255, 255, 0.1) 0px, 
-        rgba(255, 255, 255, 0.1) 1px, 
-        transparent 1px, 
-        transparent 15px
-      );
-      
-      /* Faster rain animation */
-      animation: rainFall 0.8s linear infinite;
-      z-index: 2; /* Rain is in front of sky, behind figure */
+      height: 200%;
+      background-image: repeating-linear-gradient(170deg, 
+        transparent 0%, 
+        transparent 10%, 
+        rgba(255, 255, 255, 0.15) 10%, 
+        rgba(255, 255, 255, 0.15) 12%, 
+        transparent 12%);
+      background-size: 100px 100px;
+      animation: rainAnim 0.5s linear infinite;
     }
 
-    /* 3. Anime Figure Silhouette (Drawn with clip-path) */
-    .anime-figure {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 90px;
-      
-      /* Silhouette color (dark navy/black) */
-      background: #080811;
-      
-      /* Draws the sitting pose looking up */
-      clip-path: polygon(
-        /* Head/Gaze up */
-        45% 10%, 65% 15%, 70% 30%, 60% 35%, 50% 30%, 
-        /* Neck */
-        50% 38%,
-        /* Shoulder/Torso */
-        30% 40%, 15% 55%, 20% 75%, 35% 85%, 
-        /* Arms holding knees */
-        45% 88%, 65% 85%, 75% 75%, 80% 60%, 
-        /* Legs tucked */
-        75% 95%, 60% 100%, 40% 100%, 25% 95%
-      );
-      
-      border-bottom: 2px solid rgba(255,255,255,0.05); /* Slight separation from box bottom */
-      z-index: 5; /* Figure is in front */
-      
-      /* Fade in slightly on lightning flash */
-      animation: figureGlow 8s linear infinite;
+    @keyframes rainAnim {
+      from { transform: translateY(0); }
+      to { transform: translateY(100px); }
     }
 
-    /* --- Animations --- */
-
-    @keyframes rainFall {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(15px); } /* repeating interval */
+    /* Thunder/Lightning Flash */
+    @keyframes lightningStrike {
+      0%, 94%, 100% { filter: grayscale(0.3) brightness(1); }
+      95% { filter: grayscale(0) brightness(2.5) contrast(1.5); }
+      97% { filter: grayscale(0.1) brightness(1.5) contrast(1.2); }
+      98% { filter: grayscale(0) brightness(2) contrast(1.4); }
     }
 
-    @keyframes lightningFlash {
-      /* Background brightness animation */
-      0%, 45%, 55%, 100% { background: linear-gradient(to bottom, #1a1a2e 0%, #0f0f1a 70%, #050509 100%); filter: brightness(1); }
-      48% { background: #3d3d5c; filter: brightness(1.8) contrast(1.2); } /* Main flash */
-      50% { background: #1a1a2e; filter: brightness(1); } /* Brief dip */
-      52% { background: #2e2e4d; filter: brightness(1.5); } /* Aftershock */
-    }
-
-    @keyframes figureGlow {
-      /* Figure slightly illuminates during lightning */
-      0%, 45%, 55%, 100% { background: #080811; }
-      48% { background: #1a1a2e; } /* Flash */
-      52% { background: #10101a; } /* Aftershock */
-    }
-
-
-    /* --- Original UI elements preserved --- */
+    /* Buttons */
     .btn {
       position: fixed;
       bottom: 40px;
@@ -177,6 +140,7 @@
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
 
+    /* Music Control */
     .music-bar {
       position: fixed;
       top: 25px;
@@ -209,8 +173,9 @@
     <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
     
-    <div class="storm-scene">
-      <div class="anime-figure"></div>
+    <div class="anime-box">
+      <div class="rain"></div>
+      <img src="[attachment_0](attachment)" alt="Sad Anime" class="anime-img">
     </div>
   </main>
 
@@ -223,7 +188,6 @@
   </a>
 
   <script>
-    // --- Original Script Preserved ---
     const jazzSongs = [
       { name: "CHILL LO-FI", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
       { name: "NIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
