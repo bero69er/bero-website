@@ -65,10 +65,11 @@
       margin-bottom: 5px;
     }
 
+    /* --- Smaller Storm Scene Box --- */
     .storm-scene {
       margin: 10px auto 0;
-      width: 80%;
-      height: 140px;
+      width: 75%; /* Narrower for the "small box" look */
+      height: 130px; /* Shorter box */
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.1);
       position: relative;
@@ -121,6 +122,7 @@
       52% { filter: brightness(2) contrast(1.4); }
     }
 
+    /* UI elements */
     .btn {
       position: fixed;
       bottom: 40px;
@@ -137,15 +139,6 @@
     
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
-
-    /* Hidden YouTube Player */
-    #yt-player {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
-    }
 
     .music-bar {
       position: fixed;
@@ -171,11 +164,14 @@
   <div class="glow-top"></div>
 
   <div class="music-bar">
-    <button class="m-btn" id="playBtn" onclick="toggleYT()"><i class="fa-solid fa-play"></i></button>
-    <div style="font-size: 9px; opacity: 0.5; letter-spacing: 1px;" id="songTitle">THE MOON AND THE SKY - SADE</div>
+    <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+    <div style="font-size: 9px; opacity: 0.5; letter-spacing: 1px;" id="songTitle">THE MOON AND THE SKY</div>
   </div>
 
-  <div id="yt-player"></div>
+  <!-- AUDIO PLAYER WITH YOUR LINK -->
+  <audio id="audioPlayer" loop>
+    <source src="https://files.catbox.moe/xg445g.mp3" type="audio/mpeg">
+  </audio>
 
   <main class="card">
     <p style="font-size: 9px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 5px;">BERO OFFICIAL</p>
@@ -196,49 +192,27 @@
   </a>
 
   <script>
-    // YouTube IFrame API
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    const player = document.getElementById('audioPlayer');
+    const btn = document.getElementById('playBtn');
 
-    var player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('yt-player', {
-        height: '0',
-        width: '0',
-        videoId: 'H3wzyo7mBJ4', // Your Sade Video ID
-        playerVars: {
-          'autoplay': 1,
-          'loop': 1,
-          'playlist': 'H3wzyo7mBJ4'
-        },
-        events: {
-          'onReady': onPlayerReady
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      // Browsers often block sound-on-load. 
-      // This attempt will trigger if the browser allows.
-      event.target.playVideo();
-    }
-
-    function toggleYT() {
-      const btn = document.getElementById('playBtn');
-      const state = player.getPlayerState();
-      
-      if (state === 1) { // Playing
-        player.pauseVideo();
-        btn.innerHTML = '<i class="fa-solid fa-play"></i>';
-        btn.style.background = "rgba(255,255,255,0.1)";
-      } else {
-        player.playVideo();
+    function togglePlay() {
+      if (player.paused) {
+        player.play();
         btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         btn.style.background = "var(--accent)";
+      } else {
+        player.pause();
+        btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        btn.style.background = "rgba(255,255,255,0.1)";
       }
     }
+
+    // This makes the music start as soon as the user clicks anywhere on the page
+    document.body.addEventListener('click', function() {
+        if (player.paused) {
+            togglePlay();
+        }
+    }, { once: true });
 
     let taps = 0;
     let timer;
