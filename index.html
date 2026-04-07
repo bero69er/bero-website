@@ -42,8 +42,8 @@
       position: relative;
       z-index: 10;
       width: 85%;
-      max-width: 380px;
-      padding: 30px 20px;
+      max-width: 360px;
+      padding: 25px 20px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 40px;
@@ -51,11 +51,10 @@
       -webkit-backdrop-filter: blur(25px);
       text-align: center;
       box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
     }
 
     h1 {
-      font-size: 4.5rem;
+      font-size: 4rem;
       font-weight: 900;
       letter-spacing: -3px;
       cursor: pointer;
@@ -66,12 +65,11 @@
       margin-bottom: 5px;
     }
 
-    /* --- Storm Scene Box with Integrated Image --- */
     .storm-scene {
-      margin: 15px auto 0;
-      width: 100%;
-      height: 200px;
-      border-radius: 25px;
+      margin: 10px auto 0;
+      width: 80%;
+      height: 140px;
+      border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.1);
       position: relative;
       overflow: hidden;
@@ -87,7 +85,6 @@
       animation: lightningFlash 8s linear infinite;
     }
 
-    /* Rain Effect Layer */
     .rain-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -108,14 +105,13 @@
         rgba(255, 255, 255, 0.1) 10%, 
         rgba(255, 255, 255, 0.1) 11%, 
         transparent 11%);
-      background-size: 100% 50px;
-      animation: rainFall 0.5s linear infinite;
+      background-size: 100% 40px;
+      animation: rainFall 0.4s linear infinite;
     }
 
-    /* --- Animations --- */
     @keyframes rainFall {
       from { transform: translateY(0); }
-      to { transform: translateY(50px); }
+      to { transform: translateY(40px); }
     }
 
     @keyframes lightningFlash {
@@ -125,24 +121,31 @@
       52% { filter: brightness(2) contrast(1.4); }
     }
 
-    /* --- Buttons & UI --- */
     .btn {
       position: fixed;
       bottom: 40px;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 18px 28px;
+      padding: 16px 24px;
       border-radius: 25px;
       text-decoration: none;
       font-weight: 800;
       z-index: 20;
       transition: 0.3s;
     }
-    .btn:active { transform: scale(0.95); }
     
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
+
+    /* Hidden YouTube Player */
+    #yt-player {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .music-bar {
       position: fixed;
@@ -154,12 +157,11 @@
       z-index: 100;
     }
     .m-btn {
-      width: 45px; height: 45px; border-radius: 50%; border: none;
+      width: 40px; height: 40px; border-radius: 50%; border: none;
       background: rgba(255,255,255,0.1); color: white; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* High Mode Easter Egg */
     @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
     .high-mode { animation: rainbow 4s linear infinite; }
   </style>
@@ -168,26 +170,23 @@
 
   <div class="glow-top"></div>
 
-  <!-- Music Section -->
   <div class="music-bar">
-    <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
-    <div style="font-size: 10px; opacity: 0.5; letter-spacing: 1px;" id="songTitle">CHILL JAZZ</div>
-    <audio id="audioPlayer" loop></audio>
+    <button class="m-btn" id="playBtn" onclick="toggleYT()"><i class="fa-solid fa-play"></i></button>
+    <div style="font-size: 9px; opacity: 0.5; letter-spacing: 1px;" id="songTitle">THE MOON AND THE SKY - SADE</div>
   </div>
 
-  <!-- Main Card -->
+  <div id="yt-player"></div>
+
   <main class="card">
-    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
+    <p style="font-size: 9px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 5px;">BERO OFFICIAL</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
     
     <div class="storm-scene">
-      <!-- YOUR IMAGE INTEGRATED HERE -->
       <img src="https://files.catbox.moe/vinhxn.webp" class="scene-img" alt="Bero Character">
       <div class="rain-overlay"></div>
     </div>
   </main>
 
-  <!-- Social Links -->
   <a href="https://www.tiktok.com/@a7la_bero69" class="btn tiktok-btn" target="_blank">
     <i class="fa-brands fa-tiktok"></i><span>TIKTOK</span>
   </a>
@@ -197,32 +196,50 @@
   </a>
 
   <script>
-    // Music Setup
-    const jazzSongs = [
-      { name: "CHILL LO-FI", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-      { name: "NIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-      { name: "SMOOTH SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
-    ];
-    
-    const player = document.getElementById('audioPlayer');
-    const song = jazzSongs[Math.floor(Math.random() * jazzSongs.length)];
-    player.src = song.url;
-    document.getElementById('songTitle').innerText = song.name;
+    // YouTube IFrame API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    function togglePlay() {
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player', {
+        height: '0',
+        width: '0',
+        videoId: 'H3wzyo7mBJ4', // Your Sade Video ID
+        playerVars: {
+          'autoplay': 1,
+          'loop': 1,
+          'playlist': 'H3wzyo7mBJ4'
+        },
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      // Browsers often block sound-on-load. 
+      // This attempt will trigger if the browser allows.
+      event.target.playVideo();
+    }
+
+    function toggleYT() {
       const btn = document.getElementById('playBtn');
-      if (player.paused) {
-        player.play();
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        btn.style.background = "var(--accent)";
-      } else {
-        player.pause();
+      const state = player.getPlayerState();
+      
+      if (state === 1) { // Playing
+        player.pauseVideo();
         btn.innerHTML = '<i class="fa-solid fa-play"></i>';
         btn.style.background = "rgba(255,255,255,0.1)";
+      } else {
+        player.playVideo();
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        btn.style.background = "var(--accent)";
       }
     }
 
-    // Easter Egg Logic
     let taps = 0;
     let timer;
     function handleEgg() {
