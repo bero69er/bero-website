@@ -14,7 +14,7 @@ body {
   place-items: center;
 }
 
-/* Original Orbs */
+/* Original Animated Orbs */
 .bg-orb {
   position: absolute;
   border-radius: 50%;
@@ -27,7 +27,7 @@ body {
 .orb2 { width: 240px; height: 240px; background: #06b6d4; bottom: 12%; right: 8%; animation-delay: 2s; }
 .orb3 { width: 120px; height: 120px; background: #f97316; top: 60%; left: 18%; animation-delay: 4s; }
 
-/* Original Card Style */
+/* Main Glass Card */
 .card {
   position: relative;
   z-index: 2;
@@ -61,7 +61,7 @@ h1 {
   line-height: 1.5;
 }
 
-/* SEPARATED BUTTONS */
+/* SOCIAL BUTTON STYLES */
 .social-link {
   position: fixed;
   display: flex;
@@ -71,27 +71,28 @@ h1 {
   border-radius: 50px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   z-index: 10;
 }
 
-/* Snapchat: Bottom Left (Yellow & Black) */
-.snap-btn {
-  bottom: 25px;
-  left: 25px;
-  background: #FFFC00;
-  color: #000;
-}
-
-/* TikTok: Bottom Right (Black with Glitch effect) */
+/* TikTok (Bottom Left) */
 .tiktok-btn {
   bottom: 25px;
-  right: 25px;
+  left: 25px;
   background: #000;
   color: white;
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow: -3px 0 0 #ff0050, 3px 0 0 #00f2ea;
+}
+
+/* Snapchat (Bottom Right) */
+.snap-btn {
+  bottom: 25px;
+  right: 25px;
+  background: #FFFC00; /* Yellow */
+  color: #000; /* Black text */
+  box-shadow: 0 5px 15px rgba(255, 252, 0, 0.2);
 }
 
 .social-link:hover {
