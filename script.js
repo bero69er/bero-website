@@ -1,40 +1,50 @@
 let count = 0;
 const countEl = document.getElementById("count");
-const btn1 = document.getElementById("btn1");
-const cursor = document.getElementById("cursor-dot");
+const settingsBtn = document.getElementById("settingsToggle");
+const settingsMenu = document.getElementById("settingsMenu");
+const orb1 = document.getElementById("orb1");
+const mainCard = document.getElementById("mainCard");
 
-// 1. Interactive Counter & Background Pop
-btn1.addEventListener("click", () => {
+// 1. Settings Menu Toggle
+settingsBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  settingsMenu.classList.toggle("active");
+});
+
+// 2. Theme Engine
+function setTheme(color) {
+  document.documentElement.style.setProperty('--accent', color);
+  orb1.style.background = color;
+  countEl.style.color = color;
+  
+  // Bonus points for changing theme
+  count += 5;
+  updateCounter();
+}
+
+function resetTheme() {
+  setTheme('#7c3aed');
+}
+
+// 3. Vibe Click (Tap anywhere on screen)
+document.addEventListener("click", (e) => {
+  // Don't count clicks if user is using the settings menu
+  if (settingsMenu.classList.contains("active") && settingsMenu.contains(e.target)) return;
+  if (settingsBtn.contains(e.target)) return;
+
   count++;
+  updateCounter();
+  
+  // Visual feedback on card
+  mainCard.style.transform = "scale(0.98)";
+  setTimeout(() => mainCard.style.transform = "scale(1)", 100);
+});
+
+function updateCounter() {
   countEl.textContent = count;
-  
-  // Flash animation
-  document.body.style.transition = "0.2s";
-  document.body.style.backgroundColor = "rgba(124, 58, 237, 0.2)";
-  setTimeout(() => {
-    document.body.style.backgroundColor = "#05060d";
-  }, 100);
-});
+}
 
-// 2. Smooth Custom Cursor
-document.addEventListener("mousemove", (e) => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-  
-  // Animate cursor expansion on hover
-  if (e.target.tagName === "BUTTON" || e.target.tagName === "A") {
-    cursor.style.transform = "scale(6)";
-    cursor.style.mixBlendMode = "difference";
-  } else {
-    cursor.style.transform = "scale(1)";
-    cursor.style.mixBlendMode = "normal";
-  }
-});
-
-// 3. Hover Tilt Effect for Card
-const card = document.querySelector(".glass-card");
-document.addEventListener("mousemove", (e) => {
-  let x = (window.innerWidth / 2 - e.clientX) / 25;
-  let y = (window.innerHeight / 2 - e.clientY) / 25;
-  card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+// Close settings when clicking outside
+window.addEventListener("click", () => {
+  settingsMenu.classList.remove("active");
 });
