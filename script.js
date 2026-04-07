@@ -6,7 +6,7 @@ btn1.addEventListener("click", () => {
   count++;
   countEl.textContent = count;
   
-  // Random background color on click
+  // Randomize background color on click
   const randomColor = Math.random().toString(16).slice(2, 8);
   document.body.style.background = `radial-gradient(circle at top, #${randomColor}, #090b1a 55%, #05060d)`;
 });
