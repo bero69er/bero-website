@@ -2,33 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Bero's Website</title>
-  <!-- Icon Library -->
+  
+  <!-- This line fixes the icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #1e2a78, #090b1a 55%, #05060d);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Animated Background Orbs */
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+    .orb1 { width: 200px; height: 200px; background: #7c3aed; top: 10%; left: 5%; }
+    .orb2 { width: 250px; height: 250px; background: #06b6d4; bottom: 15%; right: 5%; animation-delay: 2s; }
+    .orb3 { width: 150px; height: 150px; background: #f97316; top: 50%; left: 15%; animation-delay: 4s; }
+
+    /* The Main Card */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 400px;
+      padding: 50px 20px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .tag {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(to bottom, #fff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #d1d5db;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    /* Social Buttons Styling */
+    .social-btn {
+      position: fixed;
+      bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      z-index: 10;
+      transition: transform 0.2s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .social-btn:active { transform: scale(0.9); }
+
+    /* TikTok (Bottom Left) */
+    .tiktok-btn {
+      left: 20px;
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .tiktok-btn i {
+      color: #fff;
+      text-shadow: -2px 0 #ff0050, 2px 0 #00f2ea;
+    }
+
+    /* Snapchat (Bottom Right) */
+    .snap-btn {
+      right: 20px;
+      background: #FFFC00;
+      color: #000;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.1); }
+    }
+  </style>
 </head>
 <body>
+
   <div class="bg-orb orb1"></div>
   <div class="bg-orb orb2"></div>
   <div class="bg-orb orb3"></div>
 
   <main class="card">
     <p class="tag">ONLINE VERSION</p>
-    <h1>Bero's Website</h1>
-    <p class="subtitle">Coded on iPhone, now live online.</p>
+    <h1>BERO</h1>
+    <p class="subtitle">Coded on iPhone.<br>Now live online.</p>
   </main>
 
-  <!-- TIKTOK (BOTTOM LEFT) -->
-  <a href="https://www.tiktok.com/@a7la_bero69" class="social-link tiktok-btn" target="_blank">
+  <!-- TikTok Left -->
+  <a href="https://www.tiktok.com/@a7la_bero69" class="social-btn tiktok-btn">
     <i class="fa-brands fa-tiktok"></i>
-    <span>@a7la_bero69</span>
+    <span>TIKTOK</span>
   </a>
 
-  <!-- SNAPCHAT (BOTTOM RIGHT) -->
-  <a href="https://www.snapchat.com/add/bero69er" class="social-link snap-btn" target="_blank">
+  <!-- Snapchat Right -->
+  <a href="https://www.snapchat.com/add/bero69er" class="social-btn snap-btn">
     <i class="fa-brands fa-snapchat"></i>
-    <span>bero69er</span>
+    <span>SNAP</span>
   </a>
 
 </body>
