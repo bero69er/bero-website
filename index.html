@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>BERO OFFICIAL</title>
   
-  <!-- Icon Library (Ensures the TikTok/Snap icons work) -->
+  <!-- Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -14,6 +14,7 @@
       --pink: #ff0050;
       --snap: #FFFC00;
       --bg: #050505;
+      --card-bg: rgba(255, 255, 255, 0.03);
     }
 
     * {
@@ -33,9 +34,10 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      transition: background 0.5s ease;
     }
 
-    /* High-End Background Glows */
+    /* Background Glows */
     .glow-top {
       position: absolute;
       top: -10%;
@@ -45,14 +47,14 @@
       z-index: 0;
     }
 
-    /* Glass Card Design */
+    /* Glass Card */
     .card {
       position: relative;
       z-index: 10;
       width: 85%;
       max-width: 380px;
-      padding: 60px 20px;
-      background: rgba(255, 255, 255, 0.03);
+      padding: 50px 20px;
+      background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 40px;
       backdrop-filter: blur(25px);
@@ -62,31 +64,58 @@
     }
 
     .tag {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
       color: rgba(255,255,255,0.4);
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     h1 {
       font-size: 4.5rem;
       font-weight: 900;
       letter-spacing: -3px;
+      cursor: pointer;
+      user-select: none;
       background: linear-gradient(to bottom, #fff 30%, #666);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+      transition: transform 0.2s;
     }
+
+    h1:active { transform: scale(0.95); }
 
     .subtitle {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #aaa;
-      line-height: 1.5;
+      margin-bottom: 25px;
     }
 
-    /* SEPARATED SOCIAL BUTTONS */
+    /* Visitor Counter Styling */
+    .visitor-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .visitor-stats span {
+      font-weight: 900;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .visitor-stats p {
+      font-size: 10px;
+      letter-spacing: 1px;
+      opacity: 0.6;
+    }
+
+    /* Social Buttons */
     .btn {
       position: fixed;
       bottom: 40px;
@@ -98,14 +127,11 @@
       border-radius: 25px;
       text-decoration: none;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.9rem;
       z-index: 20;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .btn:active { transform: scale(0.9); }
-
-    /* TikTok Style (Left) */
     .tiktok-btn {
       left: 20px;
       background: #000;
@@ -114,39 +140,103 @@
       box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent);
     }
 
-    /* Snapchat Style (Right) */
     .snap-btn {
       right: 20px;
       background: var(--snap);
       color: black;
-      box-shadow: 0 10px 25px rgba(255, 252, 0, 0.2);
     }
 
-    .btn i { font-size: 1.4rem; }
+    /* God Mode Animation */
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    .god-mode { animation: rainbow 3s linear infinite !important; }
 
+    /* Jazz Music Control */
+    .music-player {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+    }
+    .music-btn {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
   </style>
 </head>
-<body>
+<body id="mainBody">
 
   <div class="glow-top"></div>
 
+  <!-- Hidden Jazz Audio -->
+  <div class="music-player">
+    <button class="music-btn" onclick="toggleMusic()" id="mBtn"><i class="fa-solid fa-music"></i></button>
+    <audio id="bgMusic" loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
   <main class="card">
-    <p class="tag">Online Now</p>
-    <h1>BERO</h1>
-    <p class="subtitle">Creating digital experiences<br>directly from an iPhone.</p>
+    <p class="tag">Online</p>
+    <h1 id="beroHeader" onclick="checkEgg()">BERO</h1>
+    <p class="subtitle">Experience the vibe.</p>
+    
+    <!-- Visitor Counter -->
+    <div class="visitor-stats">
+      <span id="vCount">Loading...</span>
+      <p>TOTAL VISITS</p>
+    </div>
   </main>
 
-  <!-- Left: TikTok -->
   <a href="https://www.tiktok.com/@a7la_bero69" class="btn tiktok-btn" target="_blank">
-    <i class="fa-brands fa-tiktok"></i>
-    <span>TIKTOK</span>
+    <i class="fa-brands fa-tiktok"></i><span>TIKTOK</span>
   </a>
 
-  <!-- Right: Snapchat -->
   <a href="https://www.snapchat.com/add/bero69er" class="btn snap-btn" target="_blank">
-    <i class="fa-brands fa-snapchat"></i>
-    <span>SNAP</span>
+    <i class="fa-brands fa-snapchat"></i><span>SNAP</span>
   </a>
+
+  <script>
+    // 1. Visitor Counter (Using LocalStorage to simulate for Demo)
+    let visits = localStorage.getItem('visit_count') || 0;
+    visits = parseInt(visits) + 1;
+    localStorage.setItem('visit_count', visits);
+    document.getElementById('vCount').innerText = visits.toLocaleString();
+
+    // 2. Secret Easter Egg (Tap BERO 5 times)
+    let eggClicks = 0;
+    function checkEgg() {
+      eggClicks++;
+      if (eggClicks === 5) {
+        document.getElementById('mainBody').classList.add('god-mode');
+        document.getElementById('beroHeader').innerText = "GOD MODE";
+        alert("GOD MODE ACTIVATED! 🌈");
+      }
+      setTimeout(() => { if(eggClicks < 5) eggClicks = 0; }, 3000);
+    }
+
+    // 3. Jazz Music Toggle
+    const music = document.getElementById('bgMusic');
+    const mBtn = document.getElementById('mBtn');
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        mBtn.style.background = "#00f2ea";
+        mBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+      } else {
+        music.pause();
+        mBtn.style.background = "rgba(255,255,255,0.1)";
+        mBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+      }
+    }
+  </script>
 
 </body>
 </html>
