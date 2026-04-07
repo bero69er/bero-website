@@ -3,44 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bero's Website</title>
-  <!-- Icon Library for Snap/TikTok icons -->
+  <title>Bero's Universe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Animated Background Orbs -->
-  <div class="bg-orb orb1"></div>
-  <div class="bg-orb orb2"></div>
-  <div class="bg-orb orb3"></div>
+  <!-- Custom Neon Cursor (Optional/Desktop) -->
+  <div id="cursor-dot"></div>
 
-  <!-- Main Content Card -->
-  <main class="card">
-    <p class="tag">ONLINE VERSION</p>
-    <h1>Bero's Website</h1>
-    <p class="subtitle">Coded on iPhone, now live online.</p>
+  <div class="background-wrapper">
+    <div class="mesh-gradient"></div>
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+  </div>
 
-    <div class="buttons">
-      <button class="neon-btn" id="btn1">Click Me</button>
+  <main class="glass-card">
+    <div class="status-badge">
+      <span class="dot"></span> LIVE NOW
     </div>
+    
+    <h1 class="glitch-text" data-text="BERO">BERO</h1>
+    <p class="description">Creating digital experiences directly from an iPhone.</p>
 
-    <div class="counter">
-      <span id="count">0</span>
-      <p>clicks</p>
+    <div class="interactive-section">
+      <button class="modern-btn" id="btn1">
+        <span class="btn-content">
+          <i class="fa-solid fa-bolt"></i>
+          <span class="btn-text">Interact</span>
+        </span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <div class="stats-glass">
+        <div class="stat-item">
+          <span id="count">0</span>
+          <p>Energized</p>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Social Links (Bottom Left) -->
-  <div class="social-container">
-    <a href="https://www.tiktok.com/@a7la_bero69" class="social-btn tiktok" target="_blank">
+  <!-- Side Socials -->
+  <nav class="side-socials">
+    <a href="https://www.tiktok.com/@a7la_bero69" class="glass-icon tiktok" target="_blank">
       <i class="fa-brands fa-tiktok"></i>
-      <span>@a7la_bero69</span>
     </a>
-    <a href="https://www.snapchat.com/add/bero69er" class="social-btn snapchat" target="_blank">
+    <a href="https://www.snapchat.com/add/bero69er" class="glass-icon snapchat" target="_blank">
       <i class="fa-brands fa-snapchat"></i>
-      <span>bero69er</span>
     </a>
-  </div>
+  </nav>
 
   <script src="script.js"></script>
 </body>
