@@ -105,7 +105,6 @@
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
 
-    /* Music Player */
     .music-bar {
       position: fixed;
       top: 25px;
@@ -121,9 +120,6 @@
       background: rgba(255,255,255,0.1); color: white; cursor: pointer;
     }
 
-    .song-info { font-size: 10px; letter-spacing: 1px; opacity: 0.5; font-weight: bold; }
-
-    /* High Mode Animation */
     @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
     .high-mode { animation: rainbow 4s linear infinite; }
   </style>
@@ -132,20 +128,19 @@
 
   <div class="glow-top"></div>
 
-  <!-- Music Control -->
   <div class="music-bar">
     <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
-    <div class="song-info" id="songTitle">CHILL MODE</div>
+    <div style="font-size: 10px; opacity: 0.5;" id="songTitle">JAZZ VIBE</div>
     <audio id="audioPlayer" loop></audio>
   </div>
 
   <main class="card">
-    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">EST. 2026</p>
+    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
     <p id="status-text">Experience the vibe.</p>
     
     <div class="visitor-stats">
-      <span id="vCount">--</span>
+      <span id="vCount">0</span>
       <p>UNIQUE VISITS</p>
     </div>
   </main>
@@ -159,32 +154,30 @@
   </a>
 
   <script>
-    // 1. REALISTIC UNIQUE VISITOR LOGIC
-    const sessionID = "bero_visit_lock";
-    // Check local storage for existing count, default to 0
-    let totalVisits = parseInt(localStorage.getItem('bero_unique_v')) || 0;
+    // 1. UNIQUE VISITOR LOGIC (FORCED RESET)
+    const NEW_STORAGE_KEY = 'bero_final_count_v1'; // Changed key to force reset from 421
+    const sessionID = "bero_unique_session";
+    
+    let totalVisits = parseInt(localStorage.getItem(NEW_STORAGE_KEY)) || 0;
 
-    // Only increment if this specific session hasn't been counted yet
     if (!sessionStorage.getItem(sessionID)) {
       totalVisits++;
-      localStorage.setItem('bero_unique_v', totalVisits);
+      localStorage.setItem(NEW_STORAGE_KEY, totalVisits);
       sessionStorage.setItem(sessionID, "true");
     }
     document.getElementById('vCount').innerText = totalVisits.toLocaleString();
 
-    // 2. RANDOM JAZZ PLAYLIST
+    // 2. RANDOM JAZZ
     const jazzSongs = [
       { name: "CHILL CAFE", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
       { name: "MIDNIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-      { name: "LO-FI VIBES", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
       { name: "SILK SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
     ];
 
     const player = document.getElementById('audioPlayer');
-    const titleDisp = document.getElementById('songTitle');
     const randomSong = jazzSongs[Math.floor(Math.random() * jazzSongs.length)];
     player.src = randomSong.url;
-    titleDisp.innerText = randomSong.name;
+    document.getElementById('songTitle').innerText = randomSong.name;
 
     function togglePlay() {
       const btn = document.getElementById('playBtn');
@@ -199,23 +192,17 @@
       }
     }
 
-    // 3. HIGH MODE EASTER EGG (5 Taps)
+    // 3. HIGH MODE (5 Taps)
     let taps = 0;
-    let eggTimer;
-
     function handleEgg() {
       taps++;
-      clearTimeout(eggTimer);
-      
       if(taps === 5) {
         document.getElementById('mainBody').classList.add('high-mode');
         document.getElementById('status-text').innerText = "HIGH MODE ACTIVATED";
         document.getElementById('status-text').style.color = "var(--accent)";
-        document.getElementById('heroName').style.transform = "scale(1.1)";
         taps = 0;
       }
-      
-      eggTimer = setTimeout(() => { taps = 0; }, 2000);
+      setTimeout(() => { taps = 0; }, 2000);
     }
   </script>
 
