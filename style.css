@@ -1,114 +1,115 @@
-:root {
-  --accent: #7c3aed;
-  --bg: #05060d;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--bg);
-  color: white;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   overflow: hidden;
-  transition: background 0.5s ease;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e2a78, #090b1a 55%, #05060d);
+  color: white;
+  display: grid;
+  place-items: center;
 }
 
-/* Background Orbs */
-.bg-visuals { position: fixed; inset: 0; z-index: -1; }
-.orb {
+/* Original Orbs */
+.bg-orb {
   position: absolute;
-  width: 60vw;
-  height: 60vw;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  animation: float 15s infinite alternate;
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: float 8s ease-in-out infinite;
 }
-.orb-1 { background: var(--accent); top: -10%; left: -10%; }
-.orb-2 { background: #00f2ea; bottom: -10%; right: -10%; animation-delay: -5s; }
 
-/* Main Card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
-  padding: 60px 40px;
+.orb1 { width: 180px; height: 180px; background: #7c3aed; top: 10%; left: 10%; }
+.orb2 { width: 240px; height: 240px; background: #06b6d4; bottom: 12%; right: 8%; animation-delay: 2s; }
+.orb3 { width: 120px; height: 120px; background: #f97316; top: 60%; left: 18%; animation-delay: 4s; }
+
+/* Original Card Style */
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 420px);
+  padding: 40px 24px;
   text-align: center;
-  width: min(90vw, 380px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  transition: transform 0.1s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.35);
+  animation: pop 1s ease-out;
 }
 
-.status-pill {
-  display: inline-flex;
+.tag {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 3.8rem);
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(96,165,250,0.8);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+  color: #e5e7eb;
+  line-height: 1.5;
+}
+
+/* SEPARATED BUTTONS */
+.social-link {
+  position: fixed;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.05);
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
 }
 
-.live-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-
-h1.glitch { font-size: 4rem; font-weight: 900; letter-spacing: -3px; color: white; }
-.subtext { opacity: 0.5; font-size: 0.9rem; margin-top: 5px; }
-
-.counter-box { margin-top: 40px; }
-#count { font-size: 3.5rem; font-weight: 900; color: var(--accent); display: block; }
-.counter-box p { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.7; }
-
-/* Settings (Top Right) */
-.settings-wrapper { position: fixed; top: 20px; right: 20px; z-index: 100; }
-.settings-btn {
-  background: rgba(255,255,255,0.1);
-  border: none; color: white; width: 45px; height: 45px;
-  border-radius: 12px; cursor: pointer; transition: 0.3s;
-}
-.settings-btn:hover { transform: rotate(45deg); background: rgba(255,255,255,0.2); }
-
-.settings-menu {
-  position: absolute; top: 55px; right: 0; width: 180px;
-  background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-  padding: 20px; display: none; text-align: center;
-}
-.settings-menu.active { display: block; animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-.color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-.color-dot { height: 35px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
-.color-dot:hover { border-color: white; transform: scale(1.1); }
-
-.reset-btn {
-  background: none; border: 1px solid rgba(255,255,255,0.2);
-  color: white; padding: 8px; width: 100%; border-radius: 10px;
-  font-size: 10px; font-weight: bold; cursor: pointer;
+/* Snapchat: Bottom Left (Yellow & Black) */
+.snap-btn {
+  bottom: 25px;
+  left: 25px;
+  background: #FFFC00;
+  color: #000;
 }
 
-/* SEPARATED SOCIAL BUTTONS */
-.social-tab {
-  position: fixed; display: flex; align-items: center; gap: 12px;
-  padding: 14px 22px; border-radius: 20px; text-decoration: none;
-  font-weight: 800; font-size: 0.9rem; z-index: 50;
-  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* TikTok: Bottom Right (Black with Glitch effect) */
+.tiktok-btn {
+  bottom: 25px;
+  right: 25px;
+  background: #000;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: -3px 0 0 #ff0050, 3px 0 0 #00f2ea;
 }
 
-/* Snapchat: Bottom Left */
-.snap-tab { bottom: 25px; left: 25px; background: #FFFC00; color: #000; }
-.snap-tab:hover { transform: translateY(-10px) rotate(-3deg); box-shadow: 0 15px 30px rgba(255, 252, 0, 0.3); }
+.social-link:hover {
+  transform: translateY(-5px) scale(1.05);
+}
 
-/* TikTok: Bottom Right */
-.tiktok-tab { bottom: 25px; right: 25px; background: #000; color: white; border: 1px solid rgba(255,255,255,0.2); }
-.tiktok-tab i { color: #ff0050; text-shadow: 2px 0 #00f2ea; }
-.tiktok-tab:hover { transform: translateY(-10px) rotate(3deg); box-shadow: -4px -4px 0px #ff0050, 4px 4px 0px #00f2ea; }
+/* Original Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.08); }
+}
 
-@keyframes float { from { transform: translate(0, 0); } to { transform: translate(20px, 40px); } }
-@keyframes pop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(96,165,250,0.5); }
+  to { text-shadow: 0 0 24px rgba(34,211,238,1); }
+}
