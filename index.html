@@ -13,6 +13,7 @@
       --pink: #ff0050;
       --snap: #FFFC00;
       --bg: #050505;
+      --fight-bg: #87CEEB; /* Sky Blue */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -62,36 +63,102 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       user-select: none;
+      margin-bottom: 20px; /* Added spacing */
     }
 
-    /* TikTok Follower Section */
-    .follower-stats {
+    /* Fight Box Section */
+    .fight-box {
       margin-top: 25px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 25px;
-      border: 1px solid rgba(255, 0, 80, 0.3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* This iframe pulls the live count for your specific username */
-    .count-frame {
-      border: none;
       width: 100%;
-      height: 80px;
-      overflow: hidden;
-      filter: invert(1) hue-rotate(180deg) brightness(1.5); /* Makes it match our dark theme */
+      height: 150px;
+      background-color: var(--fight-bg);
+      border-radius: 25px;
+      border: 4px solid #fff; /* White border */
+      position: relative;
+      overflow: hidden; /* Keep snow and stickmen inside */
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
     }
 
-    .follower-stats p {
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: var(--pink);
-      font-weight: 900;
-      margin-bottom: 5px;
-      text-transform: uppercase;
+    /* Snowing Animation */
+    .snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 50% 10%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 80% 40%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 10% 60%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 40% 80%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 70% 90%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 90% 20%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 30% 50%, #fff 2px, transparent 3px),
+        radial-gradient(circle at 60% 70%, #fff 2px, transparent 3px);
+      background-size: 100px 100px;
+      animation: snowFall 5s linear infinite;
+    }
+
+    @keyframes snowFall {
+      0% { background-position: 0px 0px; }
+      100% { background-position: 0px 100px; }
+    }
+
+    /* Stickman Container */
+    .stickman-stage {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 30px;
+    }
+
+    /* Stickman Styling (SVG-based) */
+    .stickman {
+      width: 30px;
+      height: 60px;
+    }
+
+    .stickman svg {
+      width: 100%;
+      height: 100%;
+      stroke: #000; /* Stickman color */
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Fight Animation - Stickman 1 */
+    .stickman-1 {
+      animation: attack1 2s ease-in-out infinite;
+    }
+
+    @keyframes attack1 {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      30% { transform: translateX(10px) rotate(-10deg); } /* Wind up */
+      50% { transform: translateX(-15px) rotate(10deg); } /* Punch */
+      70% { transform: translateX(0) rotate(0deg); } /* Return */
+    }
+
+    /* Fight Animation - Stickman 2 */
+    .stickman-2 {
+      animation: attack2 2s ease-in-out infinite;
+      animation-delay: 0.5s; /* Staggered attack */
+    }
+
+    @keyframes attack2 {
+      0%, 100% { transform: translateX(0) rotate(0deg) scaleX(-1); }
+      30% { transform: translateX(-10px) rotate(10deg) scaleX(-1); } /* Wind up */
+      50% { transform: translateX(15px) rotate(-10deg) scaleX(-1); } /* Punch */
+      70% { transform: translateX(0) rotate(0deg) scaleX(-1); } /* Return */
+    }
+
+    /* Flipped version for stickman 2 */
+    .stickman-2 svg {
+      transform: scaleX(-1);
     }
 
     /* Buttons */
@@ -143,10 +210,29 @@
     <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
     
-    <div class="follower-stats">
-      <p><i class="fa-brands fa-tiktok"></i> Live Followers</p>
-      <!-- Using a specialized counter widget for @a7la_bero69 -->
-      <iframe src="https://www.countonsocial.com/api/tiktok-follower-count/a7la_bero69/minimal" class="count-frame"></iframe>
+    <div class="fight-box">
+      <div class="snow"></div> <div class="stickman-stage">
+        <div class="stickman stickman-1">
+          <svg viewBox="0 0 30 60">
+            <circle cx="15" cy="10" r="8"/>
+            <line x1="15" y1="18" x2="15" y2="35"/>
+            <line x1="15" y1="22" x2="5" y2="30"/>
+            <line x1="15" y1="22" x2="25" y2="30"/>
+            <line x1="15" y1="35" x2="8" y2="55"/>
+            <line x1="15" y1="35" x2="22" y2="55"/>
+          </svg>
+        </div>
+        <div class="stickman stickman-2">
+          <svg viewBox="0 0 30 60">
+            <circle cx="15" cy="10" r="8"/>
+            <line x1="15" y1="18" x2="15" y2="35"/>
+            <line x1="15" y1="22" x2="5" y2="30"/>
+            <line x1="15" y1="22" x2="25" y2="30"/>
+            <line x1="15" y1="35" x2="8" y2="55"/>
+            <line x1="15" y1="35" x2="22" y2="55"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </main>
 
