@@ -61,6 +61,7 @@
       background: linear-gradient(to bottom, #fff 30%, #666);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      user-select: none;
     }
 
     .visitor-stats {
@@ -71,14 +72,14 @@
       background: rgba(255,255,255,0.05);
       padding: 12px 25px;
       border-radius: 20px;
-      border: 1px solid rgba(0, 242, 234, 0.2);
+      border: 1px solid rgba(0, 242, 234, 0.3);
     }
 
     .visitor-stats span { 
       font-weight: 900; 
       color: var(--accent); 
       font-size: 1.8rem;
-      text-shadow: 0 0 10px rgba(0, 242, 234, 0.5);
+      text-shadow: 0 0 15px rgba(0, 242, 234, 0.6);
     }
 
     .visitor-stats p { font-size: 9px; letter-spacing: 2px; opacity: 0.5; margin-top: 5px; }
@@ -99,7 +100,7 @@
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
 
-    /* Music Player */
+    /* Music */
     .music-bar {
       position: fixed;
       top: 25px;
@@ -124,17 +125,17 @@
 
   <div class="music-bar">
     <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
-    <div style="font-size: 10px; opacity: 0.5;" id="songTitle">CHILL JAZZ</div>
+    <div style="font-size: 10px; opacity: 0.5;" id="songTitle">JAZZ LOADING...</div>
     <audio id="audioPlayer" loop></audio>
   </div>
 
   <main class="card">
-    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">GLOBAL VIBE</p>
+    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO NETWORK</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
-    <p id="status-text" style="color:#888; font-size: 0.9rem; margin-top: 5px;">Live Network Connected</p>
+    <p id="status-text" style="color:#888; font-size: 0.9rem; margin-top: 5px;">Syncing Global Stats...</p>
     
     <div class="visitor-stats">
-      <span id="vCount">...</span>
+      <span id="vCount">0</span>
       <p>LIVE WORLDWIDE VISITS</p>
     </div>
   </main>
@@ -148,37 +149,36 @@
   </a>
 
   <script>
-    // 1. LIVE GLOBAL COUNTER
-    // This uses a public API. If the number doesn't load immediately, the server is syncing.
-    const namespace = "bero69er_github_io";
-    const key = "main_counter";
+    // 1. UPDATED LIVE GLOBAL COUNTER (CounterAPI.dev)
+    async function updateCounter() {
+      const namespace = "bero_official_2026"; 
+      const key = "hits";
+      const countDisplay = document.getElementById('vCount');
 
-    async function getLiveCount() {
       try {
-        // This increments the count on the server
-        const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
-        const data = await response.json();
-        document.getElementById('vCount').innerText = data.value.toLocaleString();
-      } catch (error) {
-        // Fallback if API is down
-        document.getElementById('vCount').innerText = "ONLINE";
+        // We use 'up' to increment and get the new value
+        const response = await fetch(`https://counterapi.dev/api/${namespace}/${key}/up`);
+        const result = await response.json();
+        if(result.status === "success") {
+          countDisplay.innerText = result.data.toLocaleString();
+          document.getElementById('status-text').innerText = "Live Network Connected";
+        }
+      } catch (e) {
+        countDisplay.innerText = "1"; // Local fallback
       }
     }
-
-    // Call it immediately
-    getLiveCount();
+    updateCounter();
 
     // 2. RANDOM JAZZ
     const jazzSongs = [
-      { name: "LO-FI CAFE", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-      { name: "SILK ROAD", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-      { name: "NIGHT SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
+      { name: "CHILL LO-FI", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { name: "NIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+      { name: "SMOOTH SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
     ];
-
     const player = document.getElementById('audioPlayer');
-    const randomSong = jazzSongs[Math.floor(Math.random() * jazzSongs.length)];
-    player.src = randomSong.url;
-    document.getElementById('songTitle').innerText = randomSong.name;
+    const song = jazzSongs[Math.floor(Math.random() * jazzSongs.length)];
+    player.src = song.url;
+    document.getElementById('songTitle').innerText = song.name;
 
     function togglePlay() {
       const btn = document.getElementById('playBtn');
