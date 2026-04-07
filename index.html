@@ -3,61 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bero's Universe</title>
-  <!-- Icons -->
+  <title>Bero's Website</title>
+  <!-- Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
 
-  <!-- Settings (Top Right) -->
-  <div class="settings-wrapper">
-    <button class="settings-btn" id="settingsToggle">
-      <i class="fa-solid fa-gear"></i>
-    </button>
-    <div class="settings-menu" id="settingsMenu">
-      <h3>CUSTOMIZE</h3>
-      <div class="color-grid">
-        <div class="color-dot" style="background: #7c3aed;" onclick="setTheme('#7c3aed')"></div>
-        <div class="color-dot" style="background: #00ff88;" onclick="setTheme('#00ff88')"></div>
-        <div class="color-dot" style="background: #ff0050;" onclick="setTheme('#ff0050')"></div>
-        <div class="color-dot" style="background: #00f2ea;" onclick="setTheme('#00f2ea')"></div>
-      </div>
-      <button class="reset-btn" onclick="resetTheme()">RESET</button>
-    </div>
-  </div>
-
-  <!-- Background Visuals -->
-  <div class="bg-visuals">
-    <div class="orb orb-1" id="orb1"></div>
-    <div class="orb orb-2" id="orb2"></div>
-  </div>
-
-  <!-- Central Glass Card -->
-  <main class="glass-card" id="mainCard">
-    <div class="status-pill"><span class="live-dot"></span> LIVE</div>
-    <h1 class="glitch">BERO</h1>
-    <p class="subtext">Tap anywhere to vibe</p>
-    
-    <div class="counter-box">
-      <span id="count">0</span>
-      <p>ENERGY</p>
-    </div>
+  <main class="card">
+    <p class="tag">ONLINE VERSION</p>
+    <h1>Bero's Website</h1>
+    <p class="subtitle">Coded on iPhone, now live online.</p>
   </main>
 
   <!-- SEPARATED SOCIALS -->
-  <!-- Snapchat: Bottom Left (Yellow/Black) -->
-  <a href="https://www.snapchat.com/add/bero69er" class="social-tab snap-tab" target="_blank">
+  <a href="https://www.snapchat.com/add/bero69er" class="social-link snap-btn" target="_blank">
     <i class="fa-brands fa-snapchat"></i>
     <span>bero69er</span>
   </a>
 
-  <!-- TikTok: Bottom Right (TikTok Colors) -->
-  <a href="https://www.tiktok.com/@a7la_bero69" class="social-tab tiktok-tab" target="_blank">
+  <a href="https://www.tiktok.com/@a7la_bero69" class="social-link tiktok-btn" target="_blank">
     <i class="fa-brands fa-tiktok"></i>
     <span>@a7la_bero69</span>
   </a>
 
-  <script src="script.js"></script>
 </body>
 </html>
