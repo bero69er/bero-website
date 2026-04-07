@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>BERO OFFICIAL</title>
   
-  <!-- Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -14,15 +13,9 @@
       --pink: #ff0050;
       --snap: #FFFC00;
       --bg: #050505;
-      --card-bg: rgba(255, 255, 255, 0.03);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
       background-color: var(--bg);
@@ -34,10 +27,9 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: background 0.5s ease;
+      transition: background 1s ease;
     }
 
-    /* Background Glows */
     .glow-top {
       position: absolute;
       top: -10%;
@@ -47,29 +39,19 @@
       z-index: 0;
     }
 
-    /* Glass Card */
     .card {
       position: relative;
       z-index: 10;
       width: 85%;
       max-width: 380px;
       padding: 50px 20px;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 40px;
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
       text-align: center;
       box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    }
-
-    .tag {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      margin-bottom: 10px;
     }
 
     h1 {
@@ -81,117 +63,90 @@
       background: linear-gradient(to bottom, #fff 30%, #666);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: transform 0.2s;
+      transition: 0.3s;
     }
 
-    h1:active { transform: scale(0.95); }
-
-    .subtitle {
+    #status-text {
+      color: #888;
       font-size: 0.9rem;
-      color: #aaa;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
 
-    /* Visitor Counter Styling */
     .visitor-stats {
+      margin-top: 20px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background: rgba(255,255,255,0.05);
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .visitor-stats span {
-      font-weight: 900;
-      color: var(--accent);
-      font-size: 1.1rem;
-    }
+    .visitor-stats span { font-weight: 900; color: var(--accent); font-size: 1.2rem; }
+    .visitor-stats p { font-size: 10px; letter-spacing: 2px; opacity: 0.5; }
 
-    .visitor-stats p {
-      font-size: 10px;
-      letter-spacing: 1px;
-      opacity: 0.6;
-    }
-
-    /* Social Buttons */
+    /* Buttons */
     .btn {
       position: fixed;
       bottom: 40px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       padding: 18px 28px;
       border-radius: 25px;
       text-decoration: none;
       font-weight: 800;
-      font-size: 0.9rem;
       z-index: 20;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.2s;
     }
+    .btn:active { transform: scale(0.9); }
 
-    .tiktok-btn {
-      left: 20px;
-      background: #000;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent);
-    }
+    .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
+    .snap-btn { right: 20px; background: var(--snap); color: black; }
 
-    .snap-btn {
-      right: 20px;
-      background: var(--snap);
-      color: black;
-    }
-
-    /* God Mode Animation */
-    @keyframes rainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    .god-mode { animation: rainbow 3s linear infinite !important; }
-
-    /* Jazz Music Control */
-    .music-player {
+    /* Music Player */
+    .music-bar {
       position: fixed;
-      top: 20px;
+      top: 25px;
       left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       z-index: 100;
     }
-    .music-btn {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
+
+    .m-btn {
+      width: 45px; height: 45px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,0.1); color: white; cursor: pointer;
     }
+
+    .song-info { font-size: 10px; letter-spacing: 1px; opacity: 0.5; font-weight: bold; }
+
+    /* High Mode Animation */
+    @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+    .high-mode { animation: rainbow 4s linear infinite; }
   </style>
 </head>
 <body id="mainBody">
 
   <div class="glow-top"></div>
 
-  <!-- Hidden Jazz Audio -->
-  <div class="music-player">
-    <button class="music-btn" onclick="toggleMusic()" id="mBtn"><i class="fa-solid fa-music"></i></button>
-    <audio id="bgMusic" loop>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
-    </audio>
+  <!-- Music Control -->
+  <div class="music-bar">
+    <button class="m-btn" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+    <div class="song-info" id="songTitle">CHILL MODE</div>
+    <audio id="audioPlayer" loop></audio>
   </div>
 
   <main class="card">
-    <p class="tag">Online</p>
-    <h1 id="beroHeader" onclick="checkEgg()">BERO</h1>
-    <p class="subtitle">Experience the vibe.</p>
+    <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">EST. 2026</p>
+    <h1 id="heroName" onclick="handleEgg()">BERO</h1>
+    <p id="status-text">Experience the vibe.</p>
     
-    <!-- Visitor Counter -->
     <div class="visitor-stats">
-      <span id="vCount">Loading...</span>
-      <p>TOTAL VISITS</p>
+      <span id="vCount">--</span>
+      <p>UNIQUE VISITS</p>
     </div>
   </main>
 
@@ -204,37 +159,62 @@
   </a>
 
   <script>
-    // 1. Visitor Counter (Using LocalStorage to simulate for Demo)
-    let visits = localStorage.getItem('visit_count') || 0;
-    visits = parseInt(visits) + 1;
-    localStorage.setItem('visit_count', visits);
-    document.getElementById('vCount').innerText = visits.toLocaleString();
+    // 1. UNIQUE VISITOR LOGIC
+    const sessionID = "bero_visit_lock";
+    let totalVisits = parseInt(localStorage.getItem('bero_unique_v')) || 420;
 
-    // 2. Secret Easter Egg (Tap BERO 5 times)
-    let eggClicks = 0;
-    function checkEgg() {
-      eggClicks++;
-      if (eggClicks === 5) {
-        document.getElementById('mainBody').classList.add('god-mode');
-        document.getElementById('beroHeader').innerText = "GOD MODE";
-        alert("GOD MODE ACTIVATED! 🌈");
+    if (!sessionStorage.getItem(sessionID)) {
+      totalVisits++;
+      localStorage.setItem('bero_unique_v', totalVisits);
+      sessionStorage.setItem(sessionID, "true");
+    }
+    document.getElementById('vCount').innerText = totalVisits.toLocaleString();
+
+    // 2. RANDOM JAZZ PLAYLIST
+    const jazzSongs = [
+      { name: "CHILL CAFE", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { name: "MIDNIGHT JAZZ", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+      { name: "LO-FI VIBES", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+      { name: "SILK SAX", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" }
+    ];
+
+    const player = document.getElementById('audioPlayer');
+    const titleDisp = document.getElementById('songTitle');
+    const randomSong = jazzSongs[Math.floor(Math.random() * jazzSongs.length)];
+    player.src = randomSong.url;
+    titleDisp.innerText = randomSong.name;
+
+    function togglePlay() {
+      const btn = document.getElementById('playBtn');
+      if (player.paused) {
+        player.play();
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        btn.style.background = "var(--accent)";
+      } else {
+        player.pause();
+        btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        btn.style.background = "rgba(255,255,255,0.1)";
       }
-      setTimeout(() => { if(eggClicks < 5) eggClicks = 0; }, 3000);
     }
 
-    // 3. Jazz Music Toggle
-    const music = document.getElementById('bgMusic');
-    const mBtn = document.getElementById('mBtn');
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        mBtn.style.background = "#00f2ea";
-        mBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-      } else {
-        music.pause();
-        mBtn.style.background = "rgba(255,255,255,0.1)";
-        mBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    // 3. HIGH MODE EASTER EGG
+    let taps = 0;
+    let eggTimer;
+
+    function handleEgg() {
+      taps++;
+      clearTimeout(eggTimer);
+      
+      if(taps === 5) {
+        document.getElementById('mainBody').classList.add('high-mode');
+        document.getElementById('status-text').innerText = "HIGH MODE ACTIVATED";
+        document.getElementById('status-text').style.color = "var(--accent)";
+        document.getElementById('heroName').style.transform = "scale(1.1)";
+        taps = 0;
       }
+      
+      // Reset tap count if user stops for 2 seconds
+      eggTimer = setTimeout(() => { taps = 0; }, 2000);
     }
   </script>
 
