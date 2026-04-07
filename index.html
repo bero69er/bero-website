@@ -65,66 +65,78 @@
       margin-bottom: 5px;
     }
 
-    /* Sad Anime Rain Scene */
-    .anime-box {
+    /* --- RAINY ANIME SCENE --- */
+    .scene-box {
       margin: 15px auto 0;
       width: 100%;
-      height: 180px;
+      height: 160px;
       border-radius: 25px;
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
       position: relative;
       overflow: hidden;
-      background: #000;
+      background: #0a0a0f;
+      animation: lightning 8s infinite;
     }
 
-    .anime-img {
-      width: 100%;
+    /* Animated Clouds */
+    .clouds {
+      position: absolute;
+      width: 200%;
       height: 100%;
-      object-fit: cover;
-      opacity: 0.7;
-      filter: grayscale(0.3) contrast(1.1);
-      animation: lightningStrike 7s infinite;
+      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
+      filter: blur(20px);
+      animation: cloudMove 20s linear infinite;
     }
 
-    /* Live Rain Overlay */
+    /* Heavy Rain */
     .rain {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: transparent;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(170deg, 
+        transparent 0%, 
+        transparent 45%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 55%);
+      background-size: 80px 80px;
+      animation: rainFall 0.4s linear infinite;
       z-index: 2;
     }
 
-    .rain::after {
-      content: "";
+    /* Anime Male Silhouette */
+    .anime-male {
       position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 200%;
-      background-image: repeating-linear-gradient(170deg, 
-        transparent 0%, 
-        transparent 10%, 
-        rgba(255, 255, 255, 0.15) 10%, 
-        rgba(255, 255, 255, 0.15) 12%, 
-        transparent 12%);
-      background-size: 100px 100px;
-      animation: rainAnim 0.5s linear infinite;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 100px;
+      background: #000;
+      clip-path: polygon(45% 15%, 55% 15%, 65% 25%, 60% 40%, 50% 35%, 45% 45%, 20% 55%, 30% 95%, 70% 95%, 80% 55%, 55% 45%);
+      z-index: 3;
+      transition: background 0.1s;
     }
 
-    @keyframes rainAnim {
-      from { transform: translateY(0); }
-      to { transform: translateY(100px); }
+    /* Keyframes for Effects */
+    @keyframes rainFall {
+      from { transform: translateY(-80px); }
+      to { transform: translateY(0); }
     }
 
-    /* Thunder/Lightning Flash */
-    @keyframes lightningStrike {
-      0%, 94%, 100% { filter: grayscale(0.3) brightness(1); }
-      95% { filter: grayscale(0) brightness(2.5) contrast(1.5); }
-      97% { filter: grayscale(0.1) brightness(1.5) contrast(1.2); }
-      98% { filter: grayscale(0) brightness(2) contrast(1.4); }
+    @keyframes cloudMove {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
     }
 
-    /* Buttons */
+    @keyframes lightning {
+      0%, 90%, 100% { background: #0a0a0f; }
+      92% { background: #2a2a3a; }
+      93% { background: #151520; }
+      94% { background: #4a4a6a; }
+    }
+
+    /* --- UI ELEMENTS --- */
     .btn {
       position: fixed;
       bottom: 40px;
@@ -140,7 +152,6 @@
     .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
     .snap-btn { right: 20px; background: var(--snap); color: black; }
 
-    /* Music Control */
     .music-bar {
       position: fixed;
       top: 25px;
@@ -173,9 +184,10 @@
     <p style="font-size: 10px; opacity: 0.4; letter-spacing: 4px; margin-bottom: 10px;">BERO OFFICIAL</p>
     <h1 id="heroName" onclick="handleEgg()">BERO</h1>
     
-    <div class="anime-box">
+    <div class="scene-box">
+      <div class="clouds"></div>
       <div class="rain"></div>
-      <img src="[attachment_0](attachment)" alt="Sad Anime" class="anime-img">
+      <div class="anime-male"></div>
     </div>
   </main>
 
