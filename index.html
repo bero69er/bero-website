@@ -159,10 +159,12 @@
   </a>
 
   <script>
-    // 1. UNIQUE VISITOR LOGIC
+    // 1. REALISTIC UNIQUE VISITOR LOGIC
     const sessionID = "bero_visit_lock";
-    let totalVisits = parseInt(localStorage.getItem('bero_unique_v')) || 420;
+    // Check local storage for existing count, default to 0
+    let totalVisits = parseInt(localStorage.getItem('bero_unique_v')) || 0;
 
+    // Only increment if this specific session hasn't been counted yet
     if (!sessionStorage.getItem(sessionID)) {
       totalVisits++;
       localStorage.setItem('bero_unique_v', totalVisits);
@@ -197,7 +199,7 @@
       }
     }
 
-    // 3. HIGH MODE EASTER EGG
+    // 3. HIGH MODE EASTER EGG (5 Taps)
     let taps = 0;
     let eggTimer;
 
@@ -213,7 +215,6 @@
         taps = 0;
       }
       
-      // Reset tap count if user stops for 2 seconds
       eggTimer = setTimeout(() => { taps = 0; }, 2000);
     }
   </script>
