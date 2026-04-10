@@ -40,7 +40,7 @@
 
     .card {
       position: relative;
-      z-index: 10;
+      z-index: 5; /* Lower than buttons */
       width: 85%;
       max-width: 360px;
       padding: 25px 20px;
@@ -121,30 +121,38 @@
       52% { filter: brightness(2) contrast(1.4); }
     }
 
+    /* Standard Button Positioning */
     .btn {
       position: fixed;
-      bottom: 40px;
+      bottom: 30px; /* Kept low for normal mode */
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 16px 24px;
+      padding: 14px 20px;
       border-radius: 25px;
       text-decoration: none;
       font-weight: 800;
+      font-size: 14px;
       z-index: 20;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
-    .tiktok-btn { left: 20px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
-    .snap-btn { right: 20px; background: var(--snap); color: black; }
+    .tiktok-btn { left: 15px; background: #000; color: white; box-shadow: -4px 0 0 var(--pink), 4px 0 0 var(--accent); }
+    .snap-btn { right: 15px; background: var(--snap); color: black; }
 
-    /* HIGH MODE FIXES */
+    /* HIGH MODE - Move buttons safely away from the card */
     @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
     .high-mode { animation: rainbow 4s linear infinite; }
 
-    /* Move buttons up in High Mode to avoid Samsung nav bars */
     .high-mode .btn {
-      bottom: 100px;
+      bottom: 60px; /* Moves them up enough to clear the card on small screens */
+    }
+
+    /* Fix for very short screens (Samsung Fold / Small Androids) */
+    @media (max-height: 700px) {
+      .btn { bottom: 15px; padding: 10px 16px; font-size: 12px; }
+      .high-mode .btn { bottom: 40px; }
+      .card { transform: scale(0.9); }
     }
 
     .music-bar {
@@ -203,7 +211,7 @@
 
     function togglePlay() {
       if (player.paused) {
-        player.play().catch(e => console.log("Autoplay blocked"));
+        player.play().catch(e => console.log("Music interaction required"));
         btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         btn.style.background = "var(--accent)";
       } else {
